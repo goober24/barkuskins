@@ -2,10 +2,33 @@
 <html>
 <head>
   <title>Barku Chan loves you</title>
+  <script>
+    // List of image filenames
+    const images = [
+      "barku beach 6.png",
+      "barku armpit.png",
+      "barku cheeked.png",
+      "barku epic.png",
+      "barku koffie.png",
+      "barku liggen.png",
+      "barku rage",
+      "barku sweat 2"
+    ];
+
+    // Pick one at random
+    const selected = images[Math.floor(Math.random() * images.length)];
+
+    // Once the page loads, update the image src
+    window.onload = () => {
+      document.getElementById("barku-img").src = selected;
+    };
+  </script>
 </head>
 <body>
-  <img src="barku beach 6.png" alt="Barku"
-    width="512"
-    height="768" />
+  <img id="barku-img"
+       src=""
+       alt="Barku"
+       width="512"
+       height="768" />
 </body>
 </html>
