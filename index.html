@@ -1,52 +1,212 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Barku Chan loves you</title>
-  <link rel="icon" type="image/jpeg" href="favicon.jpg">
-  <script>
-    // List of image filenames
-    const images = [
-      "barku beach 6.png",
-      "barku armpit.png",
-      "barku cheeked.png",
-      "barku epic.png",
-      "barku koffie.png",
-      "barku liggen.png",
-      "barku rage.png",
-      "barku sweat 2.png",
-      "barku winter.png",
-      "barku chill.png"
-    ];
-
-    // Pick one at random
-    const selected = images[Math.floor(Math.random() * images.length)];
-
-    // Once the page loads, update the image src
-    window.onload = () => {
-      document.getElementById("barku-img").src = selected;
-    };
-  </script>
-  <style>
-  #barku-img {
-    max-width: 90vw;
-    max-height: 90vh;
-    display: block;
-    margin: 0 auto;
-  body {
-    background-color: black;
-    color: white; /* optional: makes text readable */
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    font-family: sans-serif;
-  }
-
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barku Chan's Beach Date</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .dialogue-box {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-top: 4px solid rgba(255, 255, 255, 0.5);
+        }
+        .character-name {
+            background-color: #4A5568; /* A nice slate color */
+        }
+        .choice-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .choice-button:hover {
+            transform: scale(1.05);
+            background-color: #FBBF24; /* Amber 400 */
+        }
+        #character-sprite {
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        #character-sprite.enter {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .text-shadow {
+             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+    </style>
 </head>
-<body>
-  <img id="barku-img"
-       src=""
-       alt="Barku" />
+<body class="bg-gray-900 flex items-center justify-center h-screen">
+
+    <!-- Main Game Container -->
+    <div id="game-container" class="relative w-full h-full max-w-4xl max-h-[600px] bg-black rounded-lg shadow-2xl overflow-hidden">
+        
+        <!-- Background Image -->
+        <div id="background" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000" style="background-image: url('https://placehold.co/1024x768/F2A65A/FFFFFF?text=Beach+Background');">
+             <!-- Placeholder background, the provided character image implies a beach setting -->
+        </div>
+
+        <!-- Character Sprite -->
+        <div class="absolute bottom-0 right-1/2 translate-x-1/2 h-full w-auto flex items-end justify-center">
+            <img id="character-sprite" src="barku beach 6.jpg" alt="Barku Chan" class="h-[95%] object-contain"
+            onerror="this.onerror=null;this.src='https://placehold.co/400x600/333333/FFFFFF?text=Barku+Chan';">
+        </div>
+
+        <!-- Dialogue Box -->
+        <div id="dialogue-container" class="absolute bottom-0 left-0 right-0 p-6">
+            <div class="dialogue-box text-white p-5 rounded-lg">
+                <div id="character-name" class="character-name inline-block text-xl font-bold p-2 rounded-t-lg -mt-12 ml-4">
+                    Narrator
+                </div>
+                <p id="dialogue-text" class="text-lg h-24">Welcome to your beach date with Barku Chan! Click to start.</p>
+            </div>
+            <div id="choices-container" class="flex justify-center gap-4 mt-4">
+                <!-- Choice buttons will be dynamically added here -->
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Game Data ---
+        const story = {
+            start: {
+                character: null,
+                text: "You arrive at the beach and see Barku Chan waiting for you by the shore. She waves at you with a bright smile.",
+                choices: [
+                    { text: "Walk over to her", next: "meet_her" }
+                ]
+            },
+            meet_her: {
+                character: "Barku Chan",
+                text: "Hey! You made it! I was so excited I got here a little early. I hope you don't mind.",
+                choices: [
+                    { text: "Not at all! You look amazing.", next: "compliment" },
+                    { text: "The weather is perfect, isn't it?", next: "weather" }
+                ]
+            },
+            compliment: {
+                character: "Barku Chan",
+                text: "Oh... wow. Thank you! You really think so? That makes me so happy to hear.",
+                choices: [
+                    { text: "So, what should we do first?", next: "what_to_do" }
+                ]
+            },
+            weather: {
+                character: "Barku Chan",
+                text: "It really is! The perfect day for a date at the beach. I'm glad we planned this.",
+                choices: [
+                    { text: "Me too. What's the plan?", next: "what_to_do" }
+                ]
+            },
+            what_to_do: {
+                character: "Barku Chan",
+                text: "Hmm, I'm up for anything! We could go for a swim, build a sandcastle, or just walk along the water.",
+                choices: [
+                    { text: "Let's go for a swim!", next: "swim" },
+                    { text: "A sandcastle sounds fun!", next: "sandcastle" },
+                    { text: "How about a walk?", next: "walk" }
+                ]
+            },
+            swim: {
+                character: "Narrator",
+                text: "You both race into the cool water, splashing and laughing. It's refreshing and fun. You spend a while just enjoying the waves together.",
+                choices: [
+                    { text: "This was a great idea.", next: "ending_good" }
+                ]
+            },
+            sandcastle: {
+                character: "Narrator",
+                text: "You find a nice spot and start working on a grand sandcastle. Barku Chan is surprisingly artistic, adding intricate shell decorations. You build a masterpiece together.",
+                choices: [
+                    { text: "Our castle is magnificent!", next: "ending_good" }
+                ]
+            },
+            walk: {
+                character: "Narrator",
+                text: "You walk hand-in-hand along the shoreline as the sun begins to set, painting the sky in orange and pink hues. The conversation flows easily between you.",
+                choices: [
+                    { text: "This is a perfect evening.", next: "ending_good" }
+                ]
+            },
+            ending_good: {
+                character: "Barku Chan",
+                text: "I had a really wonderful time today. Thank you for bringing me here. We should definitely do this again soon.",
+                choices: [
+                    { text: "Play Again?", next: "start" }
+                ]
+            }
+        };
+
+        // --- Game State ---
+        let currentNode = "start";
+
+        // --- DOM Elements ---
+        const characterNameElement = document.getElementById('character-name');
+        const dialogueTextElement = document.getElementById('dialogue-text');
+        const choicesContainer = document.getElementById('choices-container');
+        const characterSprite = document.getElementById('character-sprite');
+        const gameContainer = document.getElementById('game-container');
+
+        // --- Game Logic ---
+        function showNode(nodeName) {
+            // Get the story node
+            const node = story[nodeName];
+            if (!node) return;
+
+            // Update current node state
+            currentNode = nodeName;
+
+            // Update character name
+            if (node.character) {
+                characterNameElement.textContent = node.character;
+                characterNameElement.style.display = 'inline-block';
+            } else {
+                characterNameElement.style.display = 'none';
+            }
+
+            // Update dialogue text with a typing effect
+            let textIndex = 0;
+            dialogueTextElement.textContent = '';
+            function typeWriter() {
+                if (textIndex < node.text.length) {
+                    dialogueTextElement.textContent += node.text.charAt(textIndex);
+                    textIndex++;
+                    setTimeout(typeWriter, 30); // Adjust typing speed here
+                }
+            }
+            typeWriter();
+
+            // Clear old choices
+            choicesContainer.innerHTML = '';
+
+            // Create and display new choices
+            node.choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.textContent = choice.text;
+                button.className = 'choice-button bg-yellow-500 text-gray-900 font-bold py-2 px-6 rounded-full shadow-md';
+                button.onclick = () => showNode(choice.next);
+                choicesContainer.appendChild(button);
+            });
+        }
+        
+        // --- Initializing the Game ---
+        window.onload = () => {
+            // Add a click listener to start the game after the intro text
+            gameContainer.onclick = () => {
+                // Remove the initial click listener so it doesn't interfere
+                gameContainer.onclick = null; 
+                
+                // Show the character sprite
+                characterSprite.classList.add('enter');
+                
+                // Start the story
+                showNode('start');
+            };
+        };
+    </script>
 </body>
 </html>
