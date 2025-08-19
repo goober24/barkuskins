@@ -16,7 +16,7 @@
             border-top: 4px solid rgba(255, 255, 255, 0.5);
         }
         .character-name {
-            background-color: #4A5568; /* A nice slate color */
+            background-color: #4A5568; /* Slate */
         }
         .choice-button {
             transition: all 0.2s ease-in-out;
@@ -45,14 +45,15 @@
     <div id="game-container" class="relative w-full h-full max-w-4xl max-h-[600px] bg-black rounded-lg shadow-2xl overflow-hidden">
         
         <!-- Background Image -->
-        <div id="background" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000" style="background-image: url('https://placehold.co/1024x768/F2A65A/FFFFFF?text=Beach+Background');">
-             <!-- Placeholder background, the provided character image implies a beach setting -->
+        <div id="background" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000" 
+             style="background-image: url('beach_background.jpg');"
+             onerror="this.style.backgroundImage='url(https://placehold.co/1024x768/F2A65A/FFFFFF?text=Beach+Background)';">
         </div>
 
         <!-- Character Sprite -->
         <div class="absolute bottom-0 right-1/2 translate-x-1/2 h-full w-auto flex items-end justify-center">
-            <!-- Re-encoding the space in the filename to '%20' for better compatibility with web servers like GitHub Pages. -->
-            <img id="character-sprite" src="barku%20beach%206.jpg" alt="Barku Chan" class="h-[95%] object-contain"
+            <img id="character-sprite" src="barku_beach_6.jpg" alt="Barku Chan" class="h-[95%] object-contain"
+            onerror="this.onerror=null;this.src='https://placehold.co/400x600/333333/FFFFFF?text=Barku+Chan';">
         </div>
 
         <!-- Dialogue Box -->
@@ -153,14 +154,11 @@
 
         // --- Game Logic ---
         function showNode(nodeName) {
-            // Get the story node
             const node = story[nodeName];
             if (!node) return;
 
-            // Update current node state
             currentNode = nodeName;
 
-            // Update character name
             if (node.character) {
                 characterNameElement.textContent = node.character;
                 characterNameElement.style.display = 'inline-block';
@@ -168,22 +166,20 @@
                 characterNameElement.style.display = 'none';
             }
 
-            // Update dialogue text with a typing effect
+            // Typing effect
             let textIndex = 0;
             dialogueTextElement.textContent = '';
             function typeWriter() {
                 if (textIndex < node.text.length) {
                     dialogueTextElement.textContent += node.text.charAt(textIndex);
                     textIndex++;
-                    setTimeout(typeWriter, 30); // Adjust typing speed here
+                    setTimeout(typeWriter, 30);
                 }
             }
             typeWriter();
 
-            // Clear old choices
+            // Choices
             choicesContainer.innerHTML = '';
-
-            // Create and display new choices
             node.choices.forEach(choice => {
                 const button = document.createElement('button');
                 button.textContent = choice.text;
@@ -193,17 +189,11 @@
             });
         }
         
-        // --- Initializing the Game ---
+        // --- Start Game ---
         window.onload = () => {
-            // Add a click listener to start the game after the intro text
             gameContainer.onclick = () => {
-                // Remove the initial click listener so it doesn't interfere
                 gameContainer.onclick = null; 
-                
-                // Show the character sprite
                 characterSprite.classList.add('enter');
-                
-                // Start the story
                 showNode('start');
             };
         };
