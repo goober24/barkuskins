@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Barku Chan loves you</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barku Chan Loves You</title>
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
+
+  <!-- Main container for the content -->
+  <div class="flex flex-col items-center p-8 bg-gray-800 rounded-3xl shadow-2xl space-y-6">
+
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center leading-tight">
+      Barku Chan Awaits
+    </h1>
+
+    <p class="text-lg sm:text-xl font-medium text-gray-300 text-center">
+      Click the button below to get a new image!
+    </p>
+
+    <!-- Image container -->
+    <div class="relative w-full max-w-xl">
+      <img id="barku-img"
+           class="w-full h-auto rounded-xl shadow-xl transition-transform duration-300 transform hover:scale-105"
+           src=""
+           alt="Barku" />
+    </div>
+
+    <!-- Interactive button -->
+    <button id="next-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 active:scale-95">
+      Show Me Barku
+    </button>
+
+  </div>
+
   <script>
-    // List of image filenames
+    // List of local image filenames stored in the same repository.
     const images = [
       "barku beach 6.png",
       "barku armpit.png",
@@ -15,40 +53,26 @@
       "barku rage.png",
       "barku sweat 2.png",
       "barku winter.png",
-      "barku chill.png"
+      "barku chill.png",
       "barku bunda.jpeg",
       "barku read.jpg"
     ];
 
-    // Pick one at random
-    const selected = images[Math.floor(Math.random() * images.length)];
+    const barkuImg = document.getElementById("barku-img");
+    const nextBtn = document.getElementById("next-btn");
 
-    // Once the page loads, update the image src
-    window.onload = () => {
-      document.getElementById("barku-img").src = selected;
-    };
+    function displayRandomImage() {
+      const selected = images[Math.floor(Math.random() * images.length)];
+      barkuImg.src = selected;
+    }
+
+    // Set the initial image when the page loads
+    window.onload = displayRandomImage;
+
+    // Add a click listener to the button
+    nextBtn.addEventListener('click', displayRandomImage);
+
   </script>
-  <style>
-  #barku-img {
-    max-width: 90vw;
-    max-height: 90vh;
-    display: block;
-    margin: 0 auto;
-  body {
-    background-color: black;
-    color: white; /* optional: makes text readable */
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    font-family: sans-serif;
-  }
 
-  }
-</style>
-</head>
-<body>
-  <img id="barku-img"
-       src=""
-       alt="Barku" />
 </body>
 </html>
