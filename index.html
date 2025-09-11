@@ -23,7 +23,7 @@
     </h1>
 
     <p class="text-lg sm:text-xl font-medium text-gray-300 text-center">
-      Click the button below to get a new image!
+      ✨ Oki, click a button below to get a cute new picture of Barku-chan, send her an email, or even a Steam trade offer!
     </p>
 
     <!-- Image container -->
@@ -34,10 +34,27 @@
            alt="Barku" />
     </div>
 
-    <!-- Interactive button -->
-    <button id="next-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 active:scale-95">
-      Show Me Barku
-    </button>
+    <!-- Interactive buttons container with new layout -->
+    <div class="flex flex-col items-center space-y-4 w-full max-w-sm">
+      <!-- Image button on its own row -->
+      <button id="next-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 active:scale-95 w-full">
+        ✨ See Barku-chan! ✨
+      </button>
+
+      <!-- Email and Trade buttons on a separate row -->
+      <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full">
+        <a href="mailto:barkuchan@proton.me?subject=A%20message%20for%20Barku%20Chan"
+           class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 active:scale-95 text-center flex-1 flex items-center justify-center">
+          💌 Email Barku!
+        </a>
+
+        <a href="https://steamcommunity.com/tradeoffer/new/?partner=1879042545&token=y4P82N29"
+           class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 active:scale-95 text-center flex-1 flex items-center justify-center"
+           target="_blank">
+          💖 Trade with Barku!
+        </a>
+      </div>
+    </div>
 
   </div>
 
